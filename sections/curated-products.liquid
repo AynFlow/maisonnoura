@@ -1,0 +1,62 @@
+{%- liquid
+  assign items_to_show = section.settings.items_to_show
+  assign products_to_render = nil
+
+  if section.settings.source == 'collection' and section.settings.collection != blank
+    assign products_to_render = section.settings.collection.products | slice: 0, items_to_show
+  elsif section.settings.source == 'manual' and section.settings.products != blank
+    assign products_to_render = section.settings.products | slice: 0, items_to_show
+  endif
+-%}
+<section class="curated" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="curated__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="curated__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.link_label != blank -%}
+        {% render 'underlined-link',
+           label: section.settings.link_label,
+           url: section.settings.link_url %}
+      {%- endif -%}
+    </div>
+
+    <div class="curated__grid">
+      {%- if products_to_render != nil and products_to_render.size > 0 -%}
+        {%- for product in products_to_render -%}
+          {% render 'product-card', product: product, placeholder_index: forloop.index0 %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..items_to_show) -%}
+          {% render 'product-card', product: blank, placeholder_index: forloop.index0 %}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sélection produits",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Curated Selection" },
+    { "type": "text", "id": "link_label", "label": "Libellé lien", "default": "View All" },
+    { "type": "url", "id": "link_url", "label": "URL lien" },
+    {
+      "type": "select", "id": "source", "label": "Source",
+      "options": [
+        { "value": "manual", "label": "Sélection manuelle" },
+        { "value": "collection", "label": "Collection entière" }
+      ],
+      "default": "manual"
+    },
+    { "type": "product_list", "id": "products", "label": "Produits (mode manuel)", "limit": 8 },
+    { "type": "collection", "id": "collection", "label": "Collection (mode collection)" },
+    { "type": "range", "id": "items_to_show", "label": "Nombre d'items", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ],
+  "presets": [
+    { "name": "Sélection produits", "category": "Products", "settings": {} }
+  ]
+}
+{% endschema %}

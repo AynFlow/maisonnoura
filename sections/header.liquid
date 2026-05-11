@@ -1,0 +1,116 @@
+<header class="site-header" data-section-id="{{ section.id }}">
+  <div class="site-header__inner">
+
+    {%- comment -%} LEFT: desktop nav (left items) + mobile burger {%- endcomment -%}
+    <div class="site-header__nav site-header__nav--left">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'menu_item' and block.settings.side == 'left' -%}
+          <a href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <button type="button"
+            class="site-header__burger"
+            aria-label="{{ 'general.accessibility.menu' | t }}"
+            data-mobile-menu-toggle>
+      {% render 'icon', name: 'menu' %}
+    </button>
+
+    {%- comment -%} CENTER: logo {%- endcomment -%}
+    <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 320 | image_tag:
+           loading: 'eager',
+           widths: '160,240,320',
+           sizes: '160px',
+           alt: shop.name
+        }}
+      {%- else -%}
+        {{ section.settings.logo_text }}
+      {%- endif -%}
+    </a>
+
+    {%- comment -%} RIGHT: desktop right nav + cart count {%- endcomment -%}
+    <div class="site-header__nav site-header__nav--right">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'menu_item' and block.settings.side == 'right' -%}
+          <a href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+      <a href="{{ routes.cart_url }}" aria-label="{{ 'general.accessibility.cart' | t }}">
+        {{ 'general.accessibility.cart' | t }} (<span data-cart-count>{{ cart.item_count }}</span>)
+      </a>
+    </div>
+
+    <a href="{{ routes.cart_url }}" class="site-header__cart-mobile" aria-label="{{ 'general.accessibility.cart' | t }}">
+      {{ 'general.accessibility.cart' | t }} (<span data-cart-count>{{ cart.item_count }}</span>)
+    </a>
+  </div>
+</header>
+
+{%- comment -%} Mobile menu panel {%- endcomment -%}
+<nav class="mobile-menu" data-mobile-menu aria-hidden="true" aria-label="{{ 'general.accessibility.menu' | t }}">
+  <div class="mobile-menu__header">
+    <span class="site-header__logo">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 240 | image_tag: widths: '160,240', sizes: '160px', alt: shop.name }}
+      {%- else -%}
+        {{ section.settings.logo_text }}
+      {%- endif -%}
+    </span>
+    <button type="button" class="mobile-menu__close" aria-label="{{ 'general.accessibility.close' | t }}" data-mobile-menu-close>
+      {% render 'icon', name: 'close' %}
+    </button>
+  </div>
+  <ul class="mobile-menu__list">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'menu_item' -%}
+        <li><a href="{{ block.settings.url | default: '#' }}">{{ block.settings.label }}</a></li>
+      {%- endif -%}
+    {%- endfor -%}
+    <li><a href="{{ routes.cart_url }}">{{ 'general.accessibility.cart' | t }}</a></li>
+    <li><a href="{{ routes.account_url }}">{{ 'general.accessibility.account' | t }}</a></li>
+  </ul>
+</nav>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "section",
+  "class": "site-header-section",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (optionnel)" },
+    { "type": "text", "id": "logo_text", "label": "Logo en texte", "default": "M A I S O N · N O U R A" }
+  ],
+  "blocks": [
+    {
+      "type": "menu_item",
+      "name": "Lien menu",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Libellé" },
+        { "type": "url", "id": "url", "label": "URL" },
+        {
+          "type": "select", "id": "side", "label": "Côté",
+          "options": [
+            { "value": "left", "label": "Gauche" },
+            { "value": "right", "label": "Droite" }
+          ],
+          "default": "left"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "menu_item", "settings": { "label": "New Collection", "side": "left" } },
+      { "type": "menu_item", "settings": { "label": "Hijabs", "side": "left" } },
+      { "type": "menu_item", "settings": { "label": "Abayas", "side": "left" } },
+      { "type": "menu_item", "settings": { "label": "Essentials", "side": "left" } },
+      { "type": "menu_item", "settings": { "label": "Search", "side": "right" } },
+      { "type": "menu_item", "settings": { "label": "Journal", "side": "right" } },
+      { "type": "menu_item", "settings": { "label": "Account", "side": "right" } }
+    ]
+  }
+}
+{% endschema %}

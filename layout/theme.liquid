@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="{{ settings.color_bg }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.brand_logo != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.brand_logo | image_url: width: 64 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% elsif settings.brand_tagline != blank %}
+      <meta name="description" content="{{ settings.brand_tagline | escape }}">
+    {% endif %}
+
+    {{ content_for_header }}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+    <style>
+      :root {
+        --color-bg: {{ settings.color_bg }};
+        --color-bg-alt: {{ settings.color_bg_alt }};
+        --color-bg-dark: {{ settings.color_bg_dark }};
+        --color-ink: {{ settings.color_ink }};
+        --color-ink-muted: {{ settings.color_ink_muted }};
+        --color-ink-light: {{ settings.color_ink_light }};
+        --color-accent: {{ settings.color_accent }};
+        --color-accent-light: {{ settings.color_accent_light }};
+        --color-line: {{ settings.color_line }};
+        --page-width: {{ settings.page_width }}px;
+      }
+    </style>
+
+    <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  </head>
+  <body class="template-{{ template | replace: '.', '-' | handle }}{% if template == 'index' %} template--has-transparent-header{% endif %}">
+    <a href="#main" class="skip-to-content">{{ 'general.accessibility.skip_to_text' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="main" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  </body>
+</html>

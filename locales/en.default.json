@@ -1,0 +1,96 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_text": "Skip to content",
+      "close": "Close",
+      "menu": "Menu",
+      "search": "Search",
+      "account": "Account",
+      "cart": "Cart",
+      "loading": "Loading",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "social": {
+      "instagram": "Instagram"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search the store",
+      "submit": "Search",
+      "no_results": "No results found for \"{{ terms }}\".",
+      "results_for": "Results for \"{{ terms }}\""
+    },
+    "newsletter": {
+      "label": "Email",
+      "placeholder": "Enter your email",
+      "submit": "Subscribe",
+      "success": "Thanks — you're on the list.",
+      "error": "Please enter a valid email."
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you requested does not exist.",
+      "link": "Back to home"
+    },
+    "pagination": {
+      "previous": "Previous page",
+      "next": "Next page",
+      "label": "Pagination"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "price": "Price",
+      "from_price": "From {{ price }}",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "quantity": "Quantity",
+      "increase": "Increase quantity",
+      "decrease": "Decrease quantity",
+      "view_details": "View details"
+    }
+  },
+  "collections": {
+    "general": {
+      "view_all": "View all",
+      "no_products": "No products found.",
+      "items": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      },
+      "sort_by": "Sort by",
+      "filter": "Filter"
+    },
+    "sorting": {
+      "manual": "Featured",
+      "best_selling": "Best selling",
+      "title_ascending": "Alphabetically, A-Z",
+      "title_descending": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "created_descending": "Newest",
+      "created_ascending": "Oldest"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your cart",
+      "empty": "Your cart is empty.",
+      "continue_shopping": "Continue shopping",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "remove": "Remove",
+      "update": "Update",
+      "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout"
+    }
+  },
+  "blogs": {
+    "article": {
+      "read_more": "Read more"
+    }
+  }
+}

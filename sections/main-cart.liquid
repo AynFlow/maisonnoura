@@ -1,0 +1,68 @@
+<section class="cart-page container" data-section-id="{{ section.id }}">
+  <h1 class="cart-page__title">{{ 'cart.general.title' | t }}</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="cart-empty">
+      <p>{{ 'cart.general.empty' | t }}</p>
+      {%- assign continue_label = 'cart.general.continue_shopping' | t -%}
+      <p style="margin-top: 16px;">
+        {% render 'button', label: continue_label, url: routes.all_products_collection_url, variant: 'secondary' %}
+      </p>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th colspan="2">Product</th>
+            <th>{{ 'products.product.quantity' | t }}</th>
+            <th>{{ 'products.product.price' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for item in cart.items -%}
+            <tr>
+              <td>
+                <a href="{{ item.url }}" class="cart-line__media">
+                  {%- if item.image -%}
+                    {{ item.image | image_url: width: 200 | image_tag: widths: '100,200', sizes: '96px', alt: item.title }}
+                  {%- endif -%}
+                </a>
+              </td>
+              <td>
+                <a href="{{ item.url }}">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <div class="t-muted">{{ item.variant.title }}</div>
+                {%- endunless -%}
+              </td>
+              <td>
+                <input type="number"
+                       name="updates[]"
+                       value="{{ item.quantity }}"
+                       min="0"
+                       aria-label="{{ 'products.product.quantity' | t }}"
+                       style="width:60px;padding:6px;border:1px solid var(--color-line);border-radius:4px;">
+              </td>
+              <td>{{ item.final_line_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+
+      <div class="cart-summary">
+        <div class="cart-summary__subtotal">{{ 'cart.general.subtotal' | t }}: <strong>{{ cart.total_price | money }}</strong></div>
+        <button type="submit" name="update" class="btn btn--ghost" style="color:var(--color-ink);border-color:var(--color-ink);">{{ 'cart.general.update' | t }}</button>
+        <button type="submit" name="checkout" class="btn btn--secondary">{{ 'cart.general.checkout' | t }}</button>
+      </div>
+      <p class="t-muted" style="margin-top:12px;font-size:13px;">{{ 'cart.general.taxes_and_shipping_at_checkout' | t }}</p>
+    </form>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Panier",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,73 @@
+<section class="hero" style="--overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};" data-section-id="{{ section.id }}">
+  {%- if section.settings.background_image != blank -%}
+    {{ section.settings.background_image | image_url: width: 2400 | image_tag:
+       loading: 'eager',
+       fetchpriority: 'high',
+       widths: '800,1200,1600,2000,2400',
+       sizes: '100vw',
+       class: 'hero__image',
+       alt: section.settings.heading_line_1 | append: ' ' | append: section.settings.heading_line_2_italic
+    }}
+  {%- else -%}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'hero__image placeholder-svg' }}
+  {%- endif -%}
+
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <h1 class="hero__title">
+      <span>{{ section.settings.heading_line_1 }}</span>
+      {%- if section.settings.heading_line_2_italic != blank -%}
+        <em>{{ section.settings.heading_line_2_italic }}</em>
+      {%- endif -%}
+    </h1>
+    {%- if section.settings.subtitle != blank -%}
+      <p class="hero__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+    <div class="hero__actions">
+      {%- if section.settings.primary_cta_label != blank -%}
+        {% render 'button',
+           label: section.settings.primary_cta_label,
+           url: section.settings.primary_cta_url,
+           variant: 'primary' %}
+      {%- endif -%}
+      {%- if section.settings.secondary_cta_label != blank -%}
+        {% render 'button',
+           label: section.settings.secondary_cta_label,
+           url: section.settings.secondary_cta_url,
+           variant: 'ghost' %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "Image de fond" },
+    { "type": "text", "id": "heading_line_1", "label": "Titre ligne 1", "default": "The Art" },
+    { "type": "text", "id": "heading_line_2_italic", "label": "Titre ligne 2 (italique)", "default": "of Modesty" },
+    { "type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "A refined collection of veils and modest essentials designed for everyday grace." },
+    { "type": "text", "id": "primary_cta_label", "label": "CTA principal — texte", "default": "Shop New Collection" },
+    { "type": "url", "id": "primary_cta_url", "label": "CTA principal — lien" },
+    { "type": "text", "id": "secondary_cta_label", "label": "CTA secondaire — texte", "default": "Discover the Lookbook" },
+    { "type": "url", "id": "secondary_cta_url", "label": "CTA secondaire — lien" },
+    { "type": "range", "id": "overlay_opacity", "label": "Opacité de l'overlay", "min": 0, "max": 60, "step": 5, "default": 15, "unit": "%" }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "category": "Image",
+      "settings": {
+        "heading_line_1": "The Art",
+        "heading_line_2_italic": "of Modesty",
+        "subtitle": "A refined collection of veils and modest essentials designed for everyday grace.",
+        "primary_cta_label": "Shop New Collection",
+        "secondary_cta_label": "Discover the Lookbook"
+      }
+    }
+  ]
+}
+{% endschema %}

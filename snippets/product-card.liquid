@@ -1,0 +1,57 @@
+{%- comment -%}
+  Renders a product card.
+  Inputs: product (Shopify product), placeholder_index (optional integer for placeholder fallback)
+{%- endcomment -%}
+{%- liquid
+  assign placeholder_index = placeholder_index | default: 1
+  assign placeholder_keys = 'product-1,product-2,product-3,product-4,product-5,product-6' | split: ','
+  assign placeholder_key = placeholder_keys[placeholder_index | modulo: 6]
+-%}
+<article class="product-card reveal-on-scroll">
+  {%- if product == blank or product.id == nil -%}
+    <a href="#" class="product-card__link" aria-disabled="true">
+      <div class="product-card__media">
+        {{ placeholder_key | placeholder_svg_tag: 'product-card__image placeholder-svg' }}
+      </div>
+      <div class="product-card__info">
+        <h3 class="product-card__title">Product title</h3>
+        {%- if settings.card_show_price -%}
+          <p class="product-card__price">$0.00</p>
+        {%- endif -%}
+      </div>
+    </a>
+  {%- else -%}
+    <a href="{{ product.url }}" class="product-card__link">
+      <div class="product-card__media">
+        {%- if product.featured_image != blank -%}
+          {{ product.featured_image | image_url: width: 800 | image_tag:
+             loading: 'lazy',
+             widths: '300,500,700,900',
+             sizes: '(min-width: 990px) 22vw, (min-width: 750px) 30vw, 45vw',
+             alt: product.featured_image.alt | default: product.title,
+             class: 'product-card__image'
+          }}
+        {%- else -%}
+          {{ placeholder_key | placeholder_svg_tag: 'product-card__image placeholder-svg' }}
+        {%- endif -%}
+      </div>
+      <div class="product-card__info">
+        <h3 class="product-card__title">{{ product.title | escape }}</h3>
+        {%- if settings.card_show_color and product.metafields.custom.color_label != blank -%}
+          <p class="product-card__color">{{ product.metafields.custom.color_label }}</p>
+        {%- elsif settings.card_show_color and product.options_by_name['Color'].values.size > 0 -%}
+          <p class="product-card__color">{{ product.options_by_name['Color'].values[0] }}</p>
+        {%- endif -%}
+        {%- if settings.card_show_price -%}
+          <p class="product-card__price">
+            {%- if product.price_varies -%}
+              {{ 'products.product.from_price' | t: price: product.price_min | money }}
+            {%- else -%}
+              {{ product.price | money }}
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+      </div>
+    </a>
+  {%- endif -%}
+</article>

@@ -1,0 +1,91 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading_line_1": "The Art",
+        "heading_line_2_italic": "of Modesty",
+        "subtitle": "A refined collection of veils and modest essentials designed for everyday grace.",
+        "primary_cta_label": "Shop New Collection",
+        "primary_cta_url": "/collections/new",
+        "secondary_cta_label": "Discover the Lookbook",
+        "secondary_cta_url": "/pages/lookbook",
+        "overlay_opacity": 15
+      }
+    },
+    "signatures": {
+      "type": "signature-categories",
+      "settings": { "heading": "Our Signature Veils" },
+      "blocks": {
+        "b1": { "type": "category", "settings": { "label": "Premium Jersey", "url": "/collections/premium-jersey" } },
+        "b2": { "type": "category", "settings": { "label": "Silk Touch",     "url": "/collections/silk-touch" } },
+        "b3": { "type": "category", "settings": { "label": "Khimars",        "url": "/collections/khimars" } },
+        "b4": { "type": "category", "settings": { "label": "Everyday Essentials", "url": "/collections/essentials" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "noor": {
+      "type": "featured-collection-spotlight",
+      "settings": {
+        "eyebrow": "Introducing:",
+        "heading": "The Noor Collection",
+        "body": "Designed for women who move with intention. Soft textures, graceful drapes, and timeless colors made to accompany every moment.",
+        "cta_label": "Discover More",
+        "cta_url": "/collections/noor",
+        "image_position": "right"
+      }
+    },
+    "curated": {
+      "type": "curated-products",
+      "settings": {
+        "heading": "Curated Selection",
+        "link_label": "View All",
+        "link_url": "/collections/all",
+        "source": "manual",
+        "items_to_show": 4
+      }
+    },
+    "ramadan": {
+      "type": "full-width-banner",
+      "settings": {
+        "heading": "The Ramadan Edit",
+        "link_label": "Shop Lookbook",
+        "link_url": "/collections/ramadan",
+        "text_color": "light"
+      }
+    },
+    "two-up": {
+      "type": "two-image-cards",
+      "blocks": {
+        "a": { "type": "card", "settings": { "label": "Everyday Grace", "url": "/collections/everyday" } },
+        "b": { "type": "card", "settings": { "label": "Soft Layers",   "url": "/collections/layers" } }
+      },
+      "block_order": ["a", "b"]
+    },
+    "content": {
+      "type": "content-cards",
+      "blocks": {
+        "journal": {
+          "type": "card",
+          "settings": {
+            "heading": "The Journal",
+            "body": "Stories on modest fashion, care, styling and everyday elegance.",
+            "cta_label": "Read More",
+            "cta_url": "/blogs/journal"
+          }
+        },
+        "promise": {
+          "type": "card",
+          "settings": {
+            "heading": "Our Promise",
+            "body": "Soft fabrics, refined cuts and pieces designed with comfort, coverage and elegance in mind.",
+            "cta_label": "Learn More",
+            "cta_url": "/pages/about"
+          }
+        }
+      },
+      "block_order": ["journal", "promise"]
+    }
+  },
+  "order": ["hero", "signatures", "noor", "curated", "ramadan", "two-up", "content"]
+}

@@ -1,0 +1,64 @@
+{%- liquid
+  assign reverse_class = ''
+  if section.settings.image_position == 'left'
+    assign reverse_class = 'spotlight__grid--reverse'
+  endif
+-%}
+<section class="spotlight" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="spotlight__grid {{ reverse_class }}">
+      <div class="spotlight__text reveal-on-scroll">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="spotlight__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        <h2 class="spotlight__heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.body != blank -%}
+          <p class="spotlight__body">{{ section.settings.body }}</p>
+        {%- endif -%}
+        {%- if section.settings.cta_label != blank -%}
+          {% render 'underlined-link',
+             label: section.settings.cta_label,
+             url: section.settings.cta_url %}
+        {%- endif -%}
+      </div>
+      <div class="spotlight__media reveal-on-scroll">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1600 | image_tag:
+             loading: 'lazy',
+             widths: '600,900,1200,1600',
+             sizes: '(min-width: 750px) 60vw, 100vw',
+             alt: section.settings.heading
+          }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Spotlight collection",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Pré-titre (italique)", "default": "Introducing:" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "The Noor Collection" },
+    { "type": "textarea", "id": "body", "label": "Description", "default": "Designed for women who move with intention. Soft textures, graceful drapes, and timeless colors made to accompany every moment." },
+    { "type": "text", "id": "cta_label", "label": "Lien — texte", "default": "Discover More" },
+    { "type": "url", "id": "cta_url", "label": "Lien — URL" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select", "id": "image_position", "label": "Position de l'image",
+      "options": [
+        { "value": "right", "label": "Droite" },
+        { "value": "left", "label": "Gauche" }
+      ],
+      "default": "right"
+    }
+  ],
+  "presets": [
+    { "name": "Spotlight collection", "category": "Image", "settings": {} }
+  ]
+}
+{% endschema %}

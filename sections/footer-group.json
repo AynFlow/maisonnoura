@@ -1,0 +1,46 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": { "policy_links_show": true },
+      "blocks": {
+        "shop": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Shop",
+            "labels": "New Collection\nHijabs\nAbayas\nEssentials\nLookbook",
+            "urls": "/collections/new\n/collections/hijabs\n/collections/abayas\n/collections/essentials\n/pages/lookbook"
+          }
+        },
+        "help": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Help",
+            "labels": "Shipping & Delivery\nReturns\nFAQ\nSize Guide\nContact Us",
+            "urls": "/pages/shipping\n/pages/returns\n/pages/faq\n/pages/size-guide\n/pages/contact"
+          }
+        },
+        "brand": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Brand",
+            "labels": "Our Story\nSustainability\nCraftsmanship\nJournal\nStockists",
+            "urls": "/pages/about\n/pages/sustainability\n/pages/craftsmanship\n/blogs/journal\n/pages/stockists"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Newsletter",
+            "intro": "Join our world and receive early access to new drops.",
+            "placeholder": "Enter your email"
+          }
+        }
+      },
+      "block_order": ["shop", "help", "brand", "newsletter"]
+    }
+  },
+  "order": ["footer"]
+}

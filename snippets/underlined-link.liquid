@@ -1,0 +1,9 @@
+{%- comment -%}
+  Underline link with hover wipe.
+  Usage: {% render 'underlined-link', label: 'View All', url: '/collections/all' %}
+{%- endcomment -%}
+{%- if url != blank -%}
+  <a href="{{ url }}" class="u-link {{ extra_class }}">{{ label }}</a>
+{%- else -%}
+  <span class="u-link {{ extra_class }}">{{ label }}</span>
+{%- endif -%}

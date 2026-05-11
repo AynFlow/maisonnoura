@@ -1,0 +1,52 @@
+<section class="two-image-cards" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="two-image-cards__grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.url | default: '#' }}" class="image-card reveal-on-scroll" {{ block.shopify_attributes }}>
+          <div class="image-card__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 1400 | image_tag:
+                 loading: 'lazy',
+                 widths: '500,800,1100,1400',
+                 sizes: '(min-width: 750px) 45vw, 100vw',
+                 alt: block.settings.label
+              }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <span class="image-card__label u-link">{{ block.settings.label }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Deux cartes image",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Carte",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Libellé", "default": "Card" },
+        { "type": "url", "id": "url", "label": "Lien" }
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    {
+      "name": "Deux cartes image",
+      "category": "Image",
+      "blocks": [
+        { "type": "card", "settings": { "label": "Everyday Grace" } },
+        { "type": "card", "settings": { "label": "Soft Layers" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

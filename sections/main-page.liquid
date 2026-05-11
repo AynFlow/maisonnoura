@@ -1,0 +1,16 @@
+<section class="page container" data-section-id="{{ section.id }}" style="padding-block: clamp(40px,5vw,80px);">
+  <header style="text-align:center;margin-bottom:32px;">
+    <h1 class="t-display-lg">{{ page.title }}</h1>
+  </header>
+  <div class="rte" style="max-width:720px;margin:0 auto;line-height:1.7;font-size:var(--fs-body-lg);color:var(--color-ink);">
+    {{ page.content }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

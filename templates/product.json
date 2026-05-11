@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": { "type": "main-product" },
+    "related": {
+      "type": "curated-products",
+      "settings": {
+        "heading": "You may also like",
+        "link_label": "",
+        "source": "manual",
+        "items_to_show": 4
+      }
+    }
+  },
+  "order": ["main", "related"]
+}

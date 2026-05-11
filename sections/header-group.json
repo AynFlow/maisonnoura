@@ -1,0 +1,23 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_text": "M A I S O N · N O U R A"
+      },
+      "blocks": {
+        "left-1": { "type": "menu_item", "settings": { "label": "New Collection", "url": "/collections/new", "side": "left" } },
+        "left-2": { "type": "menu_item", "settings": { "label": "Hijabs", "url": "/collections/hijabs", "side": "left" } },
+        "left-3": { "type": "menu_item", "settings": { "label": "Abayas", "url": "/collections/abayas", "side": "left" } },
+        "left-4": { "type": "menu_item", "settings": { "label": "Essentials", "url": "/collections/essentials", "side": "left" } },
+        "right-1": { "type": "menu_item", "settings": { "label": "Search", "url": "/search", "side": "right" } },
+        "right-2": { "type": "menu_item", "settings": { "label": "Journal", "url": "/blogs/journal", "side": "right" } },
+        "right-3": { "type": "menu_item", "settings": { "label": "Account", "url": "/account", "side": "right" } }
+      },
+      "block_order": ["left-1", "left-2", "left-3", "left-4", "right-1", "right-2", "right-3"]
+    }
+  },
+  "order": ["header"]
+}

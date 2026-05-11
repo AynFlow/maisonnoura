@@ -1,0 +1,51 @@
+<section class="signature-categories" data-section-id="{{ section.id }}">
+  <div class="container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="section__heading reveal-on-scroll">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="signature-categories__grid">
+      {%- for block in section.blocks -%}
+        {% render 'category-card',
+           image: block.settings.image,
+           label: block.settings.label,
+           url: block.settings.url
+        %}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Catégories signatures",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Our Signature Veils" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Catégorie",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Libellé", "default": "Category" },
+        { "type": "url", "id": "url", "label": "Lien" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Catégories signatures",
+      "category": "Image",
+      "blocks": [
+        { "type": "category", "settings": { "label": "Premium Jersey" } },
+        { "type": "category", "settings": { "label": "Silk Touch" } },
+        { "type": "category", "settings": { "label": "Khimars" } },
+        { "type": "category", "settings": { "label": "Everyday Essentials" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

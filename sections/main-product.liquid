@@ -1,0 +1,104 @@
+<section class="product container" data-section-id="{{ section.id }}">
+  <div class="product__grid">
+
+    <div class="product__gallery">
+      {%- if product.media.size > 0 -%}
+        {%- for media in product.media -%}
+          {%- if media.media_type == 'image' -%}
+            {%- if forloop.first -%}
+              {%- assign img_loading = 'eager' -%}
+            {%- else -%}
+              {%- assign img_loading = 'lazy' -%}
+            {%- endif -%}
+            {{ media | image_url: width: 1600 | image_tag:
+               loading: img_loading,
+               widths: '500,800,1100,1400,1600',
+               sizes: '(min-width: 750px) 50vw, 100vw',
+               alt: media.alt | default: product.title
+            }}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- elsif product.featured_image -%}
+        {{ product.featured_image | image_url: width: 1600 | image_tag:
+           loading: 'eager',
+           widths: '500,800,1100,1400,1600',
+           sizes: '(min-width: 750px) 50vw, 100vw',
+           alt: product.title
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+
+    <div class="product__info">
+      <h1 class="product__title">{{ product.title }}</h1>
+      <p class="product__price" data-product-price>
+        {%- if product.price_varies -%}
+          {{ 'products.product.from_price' | t: price: product.price_min | money }}
+        {%- else -%}
+          {{ product.price | money }}
+        {%- endif -%}
+      </p>
+
+      {%- if product.description != blank -%}
+        <div class="product__description rte">{{ product.description }}</div>
+      {%- endif -%}
+
+      {%- form 'product', product, data-variant-form: '' -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div class="product-form__option">
+              <label class="product-form__option-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                {{ option.name }}
+              </label>
+              <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                      name="options[{{ option.name | escape }}]"
+                      data-option-index="{{ forloop.index0 }}">
+                {%- for value in option.values -%}
+                  <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        <button type="submit"
+                class="btn btn--secondary btn--block"
+                data-add-to-cart
+                data-label-add="{{ 'products.product.add_to_cart' | t }}"
+                data-label-sold="{{ 'products.product.sold_out' | t }}"
+                {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+          {%- if product.selected_or_first_available_variant.available -%}
+            {{ 'products.product.add_to_cart' | t }}
+          {%- else -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- endif -%}
+        </button>
+      {%- endform -%}
+
+    </div>
+  </div>
+</section>
+
+<script>
+  window.__productVariants = [
+    {%- for v in product.variants -%}
+      {
+        "id": {{ v.id }},
+        "available": {{ v.available }},
+        "options": {{ v.options | json }},
+        "price_formatted": {{ v.price | money | json }}
+      }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ];
+</script>
+
+{% schema %}
+{
+  "name": "Produit",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

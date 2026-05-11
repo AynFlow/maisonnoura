@@ -1,0 +1,14 @@
+{%- comment -%}
+  Renders a pill button.
+  Usage: {% render 'button', label: 'Shop', url: '/collections/all', variant: 'primary' %}
+  Variants: primary, secondary, ghost, dark
+{%- endcomment -%}
+{%- liquid
+  assign variant = variant | default: 'primary'
+  assign extra_class = extra_class | default: ''
+-%}
+{%- if url != blank -%}
+  <a href="{{ url }}" class="btn btn--{{ variant }} {{ extra_class }}">{{ label }}</a>
+{%- else -%}
+  <button type="button" class="btn btn--{{ variant }} {{ extra_class }}">{{ label }}</button>
+{%- endif -%}

@@ -1,0 +1,22 @@
+{%- comment -%}
+  Wraps Shopify image with srcset / sizes / lazy loading.
+  Required: image (Shopify image object)
+  Optional: sizes, widths, class, loading, fetchpriority, alt
+{%- endcomment -%}
+{%- liquid
+  assign sizes = sizes | default: '100vw'
+  assign widths = widths | default: '400,600,800,1200,1600,2000'
+  assign loading = loading | default: 'lazy'
+  assign fetchpriority = fetchpriority | default: 'auto'
+  assign alt = alt | default: image.alt | default: ''
+-%}
+{%- if image != blank -%}
+  {{ image | image_url: width: 2000 | image_tag:
+     loading: loading,
+     fetchpriority: fetchpriority,
+     widths: widths,
+     sizes: sizes,
+     alt: alt,
+     class: class
+  }}
+{%- endif -%}

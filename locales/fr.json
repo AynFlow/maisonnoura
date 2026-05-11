@@ -1,0 +1,96 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_text": "Aller au contenu",
+      "close": "Fermer",
+      "menu": "Menu",
+      "search": "Recherche",
+      "account": "Compte",
+      "cart": "Panier",
+      "loading": "Chargement",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "social": {
+      "instagram": "Instagram"
+    },
+    "search": {
+      "title": "Recherche",
+      "placeholder": "Rechercher dans la boutique",
+      "submit": "Rechercher",
+      "no_results": "Aucun résultat pour « {{ terms }} ».",
+      "results_for": "Résultats pour « {{ terms }} »"
+    },
+    "newsletter": {
+      "label": "Email",
+      "placeholder": "Entrez votre email",
+      "submit": "S'inscrire",
+      "success": "Merci, vous êtes inscrit·e.",
+      "error": "Veuillez entrer un email valide."
+    },
+    "404": {
+      "title": "Page introuvable",
+      "subtext": "La page demandée n'existe pas.",
+      "link": "Retour à l'accueil"
+    },
+    "pagination": {
+      "previous": "Page précédente",
+      "next": "Page suivante",
+      "label": "Pagination"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "sold_out": "Épuisé",
+      "unavailable": "Indisponible",
+      "price": "Prix",
+      "from_price": "À partir de {{ price }}",
+      "regular_price": "Prix normal",
+      "sale_price": "Prix promo",
+      "quantity": "Quantité",
+      "increase": "Augmenter la quantité",
+      "decrease": "Diminuer la quantité",
+      "view_details": "Voir le détail"
+    }
+  },
+  "collections": {
+    "general": {
+      "view_all": "Voir tout",
+      "no_products": "Aucun produit trouvé.",
+      "items": {
+        "one": "{{ count }} produit",
+        "other": "{{ count }} produits"
+      },
+      "sort_by": "Trier par",
+      "filter": "Filtrer"
+    },
+    "sorting": {
+      "manual": "En vedette",
+      "best_selling": "Meilleures ventes",
+      "title_ascending": "Alphabétique, A-Z",
+      "title_descending": "Alphabétique, Z-A",
+      "price_ascending": "Prix croissant",
+      "price_descending": "Prix décroissant",
+      "created_descending": "Nouveautés",
+      "created_ascending": "Anciens"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Votre panier",
+      "empty": "Votre panier est vide.",
+      "continue_shopping": "Continuer mes achats",
+      "subtotal": "Sous-total",
+      "checkout": "Commander",
+      "remove": "Retirer",
+      "update": "Mettre à jour",
+      "taxes_and_shipping_at_checkout": "Taxes et livraison calculées au paiement"
+    }
+  },
+  "blogs": {
+    "article": {
+      "read_more": "Lire plus"
+    }
+  }
+}

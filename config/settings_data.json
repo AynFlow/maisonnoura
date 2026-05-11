@@ -1,0 +1,34 @@
+{
+  "current": {
+    "color_bg": "#F4EFE6",
+    "color_bg_alt": "#EBE3D5",
+    "color_bg_dark": "#2C2520",
+    "color_ink": "#2C2520",
+    "color_ink_muted": "#6B5D52",
+    "color_ink_light": "#F4EFE6",
+    "color_accent": "#8B6F5C",
+    "color_accent_light": "#C9B8A4",
+    "color_line": "#D9CFC1",
+    "brand_name": "Maison Noura",
+    "brand_tagline": "Modest essentials, designed for everyday grace.",
+    "footer_copyright": "© 2025 Maison Noura. All rights reserved.",
+    "page_width": 1280,
+    "card_show_color": true,
+    "card_show_price": true
+  },
+  "presets": {
+    "Default": {
+      "color_bg": "#F4EFE6",
+      "color_bg_alt": "#EBE3D5",
+      "color_bg_dark": "#2C2520",
+      "color_ink": "#2C2520",
+      "color_ink_muted": "#6B5D52",
+      "color_ink_light": "#F4EFE6",
+      "color_accent": "#8B6F5C",
+      "color_accent_light": "#C9B8A4",
+      "color_line": "#D9CFC1",
+      "brand_name": "Maison Noura",
+      "page_width": 1280
+    }
+  }
+}

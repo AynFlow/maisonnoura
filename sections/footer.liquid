@@ -1,0 +1,104 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="site-footer__grid">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'link_column' -%}
+            <div class="footer-column" {{ block.shopify_attributes }}>
+              <h3 class="footer-column__heading">{{ block.settings.heading }}</h3>
+              <ul class="footer-column__list">
+                {%- assign labels = block.settings.labels | newline_to_br | split: '<br />' -%}
+                {%- assign urls   = block.settings.urls   | newline_to_br | split: '<br />' -%}
+                {%- for label in labels -%}
+                  {%- assign trimmed = label | strip -%}
+                  {%- if trimmed != blank -%}
+                    <li>
+                      <a href="{{ urls[forloop.index0] | strip | default: '#' }}">{{ trimmed }}</a>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </div>
+
+          {%- when 'newsletter' -%}
+            <div class="footer-column" {{ block.shopify_attributes }}>
+              <h3 class="footer-column__heading">{{ block.settings.heading }}</h3>
+              <p class="newsletter__intro">{{ block.settings.intro }}</p>
+              {% form 'customer', class: 'newsletter__form' %}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <input type="email"
+                       name="contact[email]"
+                       aria-label="{{ 'general.newsletter.label' | t }}"
+                       placeholder="{{ block.settings.placeholder }}"
+                       required>
+                <button type="submit" aria-label="{{ 'general.newsletter.submit' | t }}">
+                  {% render 'icon', name: 'arrow-right' %}
+                </button>
+                {%- if form.posted_successfully? -%}
+                  <p class="newsletter__success">{{ 'general.newsletter.success' | t }}</p>
+                {%- elsif form.errors -%}
+                  <p class="newsletter__success">{{ 'general.newsletter.error' | t }}</p>
+                {%- endif -%}
+              {% endform %}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>{{ settings.footer_copyright }}</span>
+      <div class="site-footer__legal">
+        {%- if section.settings.policy_links_show -%}
+          {%- if shop.privacy_policy.url -%}<a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a>{%- endif -%}
+          {%- if shop.terms_of_service.url -%}<a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title }}</a>{%- endif -%}
+        {%- endif -%}
+      </div>
+      <div class="site-footer__social">
+        {%- if settings.instagram_url != blank -%}
+          <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener" aria-label="{{ 'general.social.instagram' | t }}">
+            {% render 'icon', name: 'instagram' %}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "policy_links_show", "label": "Afficher liens politique de confidentialité / CGV", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "link_column",
+      "name": "Colonne de liens",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Titre", "default": "Shop" },
+        { "type": "textarea", "id": "labels", "label": "Libellés (un par ligne)", "default": "New Collection\nHijabs\nAbayas\nEssentials\nLookbook" },
+        { "type": "textarea", "id": "urls", "label": "URLs (une par ligne, dans le même ordre)", "default": "/collections/new\n/collections/hijabs\n/collections/abayas\n/collections/essentials\n/pages/lookbook" }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Titre", "default": "Newsletter" },
+        { "type": "textarea", "id": "intro", "label": "Introduction", "default": "Join our world and receive early access to new drops." },
+        { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Enter your email" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "link_column", "settings": { "heading": "Shop", "labels": "New Collection\nHijabs\nAbayas\nEssentials\nLookbook", "urls": "/collections/new\n/collections/hijabs\n/collections/abayas\n/collections/essentials\n/pages/lookbook" } },
+      { "type": "link_column", "settings": { "heading": "Help", "labels": "Shipping & Delivery\nReturns\nFAQ\nSize Guide\nContact Us", "urls": "/pages/shipping\n/pages/returns\n/pages/faq\n/pages/size-guide\n/pages/contact" } },
+      { "type": "link_column", "settings": { "heading": "Brand", "labels": "Our Story\nSustainability\nCraftsmanship\nJournal\nStockists", "urls": "/pages/about\n/pages/sustainability\n/pages/craftsmanship\n/blogs/journal\n/pages/stockists" } },
+      { "type": "newsletter", "settings": { "heading": "Newsletter", "intro": "Join our world and receive early access to new drops.", "placeholder": "Enter your email" } }
+    ]
+  }
+}
+{% endschema %}
