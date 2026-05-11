@@ -5,7 +5,8 @@
 {%- liquid
   assign placeholder_index = placeholder_index | default: 1
   assign placeholder_keys = 'product-1,product-2,product-3,product-4,product-5,product-6' | split: ','
-  assign placeholder_key = placeholder_keys[placeholder_index | modulo: 6]
+  assign placeholder_mod = placeholder_index | modulo: 6
+  assign placeholder_key = placeholder_keys[placeholder_mod]
 -%}
 <article class="product-card reveal-on-scroll">
   {%- if product == blank or product.id == nil -%}
