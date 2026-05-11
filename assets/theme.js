@@ -1,6 +1,7 @@
 /* Maison Noura — theme.js (vanilla, ES modules) */
 
 (() => {
+  const isDesignMode = window.Shopify && window.Shopify.designMode;
   const header = document.querySelector('.site-header');
 
   // 1) Header opacity on scroll
@@ -13,9 +14,17 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  // 2) Reveal on scroll
-  const revealEls = document.querySelectorAll('.reveal-on-scroll');
-  if (revealEls.length && 'IntersectionObserver' in window) {
+  // 2) Reveal on scroll — with Customizer-safe init
+  const initReveal = (root) => {
+    const scope = root || document;
+    const els = scope.querySelectorAll('.reveal-on-scroll:not(.is-visible)');
+    if (!els.length) return;
+
+    if (isDesignMode || !('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -24,10 +33,12 @@
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    revealEls.forEach((el) => io.observe(el));
-  } else {
-    revealEls.forEach((el) => el.classList.add('is-visible'));
-  }
+    els.forEach((el) => io.observe(el));
+  };
+  initReveal();
+
+  // Re-init when a section is re-rendered in the Customizer
+  document.addEventListener('shopify:section:load', (e) => initReveal(e.target));
 
   // 3) Mobile menu
   const burger = document.querySelector('[data-mobile-menu-toggle]');
